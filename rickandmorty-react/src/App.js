@@ -3,6 +3,7 @@ import './css/Main.scss';
 import './css/App.scss';
 import './css/Character.scss';
 import './css/Pagination.scss';
+import './css/CharModal.scss';
 
 function App() {
   return (

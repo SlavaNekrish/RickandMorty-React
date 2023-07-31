@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Character } from './Character';
 import { Pagination } from './Pagination';
+import { CharModal } from './CharModal';
 
 export const Main = () => {
   const [dataResults, setDataResults] = useState([]);
@@ -10,8 +11,10 @@ export const Main = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [isPaginate, setPagination] = useState(false);
   const [fetching, setFetching] = useState(true);
-  // const { info, results } = data;
+  const [idModal, setIdModal] = useState(2);
+  const [modalActive, setmodalActive] = useState(true);
   let display;
+  console.log(idModal);
 
   const url = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
@@ -27,8 +30,8 @@ export const Main = () => {
           setDataResults([...dataResults, ...response.data.results]);
           setDataInfo(response.data.info);
           setPageNumber((prevState) => prevState + 1);
-          console.log(pageNumber);
         })
+        .catch((error) => console.log(error))
         .finally(() => setFetching(false));
     }
   }, [fetching]);
@@ -37,10 +40,13 @@ export const Main = () => {
 
   useEffect(() => {
     if (isPaginate) {
-      axios.get(url).then((response) => {
-        setDataResults(response.data.results);
-        setDataInfo(response.data.info);
-      });
+      axios
+        .get(url)
+        .then((response) => {
+          setDataResults(response.data.results);
+          setDataInfo(response.data.info);
+        })
+        .catch((error) => console.log(error));
     }
   }, [url]);
 
@@ -66,7 +72,7 @@ export const Main = () => {
 
   if (dataResults) {
     display = dataResults.map((character, index) => (
-      <Character character={character} key={index} />
+      <Character character={character} key={index} setIdModal={setIdModal} />
     ));
   } else {
     display = 'No characters found :/';
@@ -104,6 +110,7 @@ export const Main = () => {
           <Pagination info={dataInfo} pageNumber={pageNumber} setPageNumber={setPageNumber} />
         )}
       </div>
+      <CharModal active={modalActive} setActive={setmodalActive} id={idModal} />
     </div>
   );
 };
