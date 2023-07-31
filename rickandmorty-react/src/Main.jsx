@@ -1,44 +1,73 @@
 import React from 'react';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Character } from './Character';
 import { Pagination } from './Pagination';
-import { useFetchPaginData } from './useFetchPaginData';
 
 export const Main = () => {
+  const [dataResults, setDataResults] = useState([]);
+  const [dataInfo, setDataInfo] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [isPaginate, setPagination] = useState(false);
-  const { data } = useFetchPaginData(pageNumber);
-  const { info, results } = data;
+  const [fetching, setFetching] = useState(true);
+  // const { info, results } = data;
   let display;
+
+  const url = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
+
+  // Fetch data for scrolling
+
+  useEffect(() => {
+    // console.log('useEffect ran');
+    if (fetching && dataInfo.next !== null && !isPaginate) {
+      console.log('fetching');
+      axios
+        .get(url)
+        .then((response) => {
+          setDataResults([...dataResults, ...response.data.results]);
+          setDataInfo(response.data.info);
+          setPageNumber((prevState) => prevState + 1);
+          console.log(pageNumber);
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
+
+  // Fetch data for pagination
+
+  useEffect(() => {
+    if (isPaginate) {
+      axios.get(url).then((response) => {
+        setDataResults(response.data.results);
+        setDataInfo(response.data.info);
+      });
+    }
+  }, [url]);
 
   // endless scroll logic
 
-  // useEffect(() => {
-  //   document.addEventListener('scroll', scrollHandler);
-  //   return () => {
-  //     document.removeEventListener('scroll', scrollHandler);
-  //   };
-  // }, []);
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+    return function () {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
 
-  // const scrollHandler = (e) => {
-  //   if (
-  //     !isPaginate &&
-  //     e.target.documentElement.scrollHeight -
-  //       (e.target.documentElement.scrollTop + window.innerHeight) <
-  //       100 &&
-  //     pageNumber < 43
-  //   ) {
-  //     setFetching(true);
-  //     console.log('scroll');
-  //     console.log(isPaginate);
-  //   }
-  //   console.log('scrollHeight', e.target.documentElement.scrollHeight);
-  // console.log('scrollTop', e.target.documentElement.scrollTop);
-  // console.log('innerHeight', window.innerHeight);
-  // };
+  const scrollHandler = (e) => {
+    if (
+      !isPaginate &&
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+        100
+    ) {
+      setFetching(true);
+    }
+  };
 
-  if (data.results && isPaginate) {
-    display = results.map((character, index) => <Character character={character} key={index} />);
+  if (dataResults) {
+    display = dataResults.map((character, index) => (
+      <Character character={character} key={index} />
+    ));
   } else {
     display = 'No characters found :/';
   }
@@ -50,6 +79,10 @@ export const Main = () => {
           <button
             onClick={(e) => {
               setPagination(true);
+              console.log('isPaginate', isPaginate);
+              setPageNumber(1);
+              setDataResults([]);
+              setFetching(false);
             }}
             className="pagin-button">
             Pagination
@@ -57,6 +90,10 @@ export const Main = () => {
           <button
             onClick={(e) => {
               setPagination(false);
+              console.log('isPaginate', isPaginate);
+              setPageNumber(1);
+              setDataResults([]);
+              setFetching(true);
             }}
             className="non-pagin-button">
             Non-Pagination
@@ -64,7 +101,7 @@ export const Main = () => {
         </div>
         <div className="cards">{display}</div>
         {isPaginate && (
-          <Pagination info={info} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          <Pagination info={dataInfo} pageNumber={pageNumber} setPageNumber={setPageNumber} />
         )}
       </div>
     </div>
