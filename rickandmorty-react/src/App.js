@@ -1,4 +1,8 @@
 import { Main } from './Main';
+import './css/Main.scss';
+import './css/App.scss';
+import './css/Character.scss';
+import './css/Pagination.scss';
 
 function App() {
   return (

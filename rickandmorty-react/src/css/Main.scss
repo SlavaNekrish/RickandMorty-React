@@ -1,0 +1,56 @@
+.character-conteiner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.pagin-button {
+  margin-bottom: 70px;
+  margin-right: 10px;
+  display: inline-block;
+  color: #fff;
+  background: linear-gradient(to bottom, #030109, #736c6c);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 26px;
+  border-radius: 100px;
+  /* Прозрачная граница, предназначенная для вывода варианта той же кнопки с обводкой */
+  border: 3px solid transparent;
+  text-decoration: none;
+  transition: 1s linear;
+}
+
+.pagin-button:hover {
+  background: linear-gradient(to bottom, #030109, #9b3838);
+  cursor: pointer;
+}
+
+.non-pagin-button {
+  margin-bottom: 70px;
+  display: inline-block;
+  color: #fff;
+  background: linear-gradient(to bottom, #131328, #379190);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 26px;
+  border-radius: 100px;
+  /* Прозрачная граница, предназначенная для вывода варианта той же кнопки с обводкой */
+  border: 3px solid transparent;
+  text-decoration: none;
+  transition: 1s linear;
+}
+
+.non-pagin-button:hover {
+  background: linear-gradient(to bottom, #0d0d0c, #5e389b);
+  cursor: pointer;
+}

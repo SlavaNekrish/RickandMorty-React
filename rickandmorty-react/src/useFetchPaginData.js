@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-const url = 'https://rickandmortyapi.com/api/character/';
 
-export const useFetchData = () => {
+export const useFetchPaginData = (pageNumber) => {
   const [data, setData] = useState([]);
+
+  const url = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
   const getData = async () => {
     const response = await fetch(url);
@@ -12,6 +13,6 @@ export const useFetchData = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [url]);
   return { data };
 };
