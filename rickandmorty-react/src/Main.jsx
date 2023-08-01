@@ -15,7 +15,6 @@ export const Main = () => {
   const [idModal, setIdModal] = useState(1);
   const [modalActive, setmodalActive] = useState(false);
   let display;
-  console.log(idModal);
 
   const url = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
@@ -24,7 +23,6 @@ export const Main = () => {
   useEffect(() => {
     // console.log('useEffect ran');
     if (fetching && dataInfo.next !== null && !isPaginate) {
-      console.log('fetching');
       axios
         .get(url)
         .then((response) => {
