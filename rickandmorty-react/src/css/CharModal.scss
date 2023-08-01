@@ -1,22 +1,21 @@
 @import 'mixins';
 
 .modal {
-  display: none;
-  position: fixed;
+  width: 100vw;
+  height: 100vh;
   z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: width 2s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
 }
 
 .modal--show {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  transform: scale(1);
 }
 
 .modal_card {
@@ -76,6 +75,7 @@ ul:last-of-type {
   border-style: none;
   width: 30px;
   height: 30px;
+  cursor: pointer;
   img {
     width: 30px;
     height: 30px;

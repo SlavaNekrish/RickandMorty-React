@@ -13,6 +13,8 @@ export const Pagination = ({ info, pageNumber, setPageNumber }) => {
       pageClassName="button-page"
       pageLinkClassName="button-pageLink"
       activeClassName="button-page-active"
+      pageRangeDisplayed={2}
+      marginPagesDisplayed={1}
       onPageChange={(data) => {
         setPageNumber(data.selected + 1);
       }}

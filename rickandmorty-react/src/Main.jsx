@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Character } from './Character';
 import { Pagination } from './Pagination';
 import { CharModal } from './CharModal';
+import ScrollToTop from './ScrollToTop';
 
 export const Main = () => {
   const [dataResults, setDataResults] = useState([]);
@@ -11,8 +12,8 @@ export const Main = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [isPaginate, setPagination] = useState(false);
   const [fetching, setFetching] = useState(true);
-  const [idModal, setIdModal] = useState(2);
-  const [modalActive, setmodalActive] = useState(true);
+  const [idModal, setIdModal] = useState(1);
+  const [modalActive, setmodalActive] = useState(false);
   let display;
   console.log(idModal);
 
@@ -34,7 +35,7 @@ export const Main = () => {
         .catch((error) => console.log(error))
         .finally(() => setFetching(false));
     }
-  }, [fetching]);
+  }, [fetching, isPaginate]);
 
   // Fetch data for pagination
 
@@ -72,7 +73,12 @@ export const Main = () => {
 
   if (dataResults) {
     display = dataResults.map((character, index) => (
-      <Character character={character} key={index} setIdModal={setIdModal} />
+      <Character
+        character={character}
+        key={index}
+        setIdModal={setIdModal}
+        setModalActive={setmodalActive}
+      />
     ));
   } else {
     display = 'No characters found :/';
@@ -111,6 +117,7 @@ export const Main = () => {
         )}
       </div>
       <CharModal active={modalActive} setActive={setmodalActive} id={idModal} />
+      {!isPaginate && <ScrollToTop />}
     </div>
   );
 };
