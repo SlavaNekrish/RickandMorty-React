@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import DotLoader from 'react-spinners/DotLoader';
 import { Character } from './Character';
 import { Pagination } from './Pagination';
 import { CharModal } from './CharModal';
@@ -82,6 +83,12 @@ export const Main = () => {
     display = 'No characters found :/';
   }
 
+  const override = {
+    display: 'block',
+    margin: '0 auto',
+    borderColor: '#9b3838',
+  };
+
   return (
     <div>
       <div className="character-conteiner">
@@ -89,7 +96,6 @@ export const Main = () => {
           <button
             onClick={(e) => {
               setPagination(true);
-              console.log('isPaginate', isPaginate);
               setPageNumber(1);
               setDataResults([]);
               setFetching(false);
@@ -100,7 +106,6 @@ export const Main = () => {
           <button
             onClick={(e) => {
               setPagination(false);
-              console.log('isPaginate', isPaginate);
               setPageNumber(1);
               setDataResults([]);
               setFetching(true);
@@ -110,6 +115,9 @@ export const Main = () => {
           </button>
         </div>
         <div className="cards">{display}</div>
+        {fetching && !isPaginate && (
+          <DotLoader color={'#9b3838'} loading={fetching} size={100} cssOverride={override} />
+        )}
         {isPaginate && (
           <Pagination info={dataInfo} pageNumber={pageNumber} setPageNumber={setPageNumber} />
         )}
