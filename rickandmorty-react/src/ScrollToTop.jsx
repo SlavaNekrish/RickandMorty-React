@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useWindowScroll } from 'react-use';
+import arrow from './img/whiteArrow.png';
 
 const ScrollToTop = () => {
   const { y: pageYOffset } = useWindowScroll();
@@ -21,7 +22,7 @@ const ScrollToTop = () => {
 
   return (
     <div className="scroll-to-top cursor-pointer text-center" onClick={scrollToTop}>
-      <i className="icon fas fa-chevron-up"></i>
+      <img className="icon" src={arrow} alt="arrow"></img>
     </div>
   );
 };
