@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/RickandMorty-React/static/css/main.64fd93ba.css",
-    "main.js": "/RickandMorty-React/static/js/main.9321e152.js",
+    "main.css": "/RickandMorty-React/static/css/main.05a92f17.css",
+    "main.js": "/RickandMorty-React/static/js/main.9017a64a.js",
+    "static/media/whiteArrow.png": "/RickandMorty-React/static/media/whiteArrow.ae727385d0e690908a1e.png",
     "index.html": "/RickandMorty-React/index.html",
-    "main.64fd93ba.css.map": "/RickandMorty-React/static/css/main.64fd93ba.css.map",
-    "main.9321e152.js.map": "/RickandMorty-React/static/js/main.9321e152.js.map"
+    "main.05a92f17.css.map": "/RickandMorty-React/static/css/main.05a92f17.css.map",
+    "main.9017a64a.js.map": "/RickandMorty-React/static/js/main.9017a64a.js.map"
   },
   "entrypoints": [
-    "static/css/main.64fd93ba.css",
-    "static/js/main.9321e152.js"
+    "static/css/main.05a92f17.css",
+    "static/js/main.9017a64a.js"
   ]
 }
